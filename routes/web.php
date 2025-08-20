@@ -19,3 +19,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/category/category.php';
+require __DIR__ . '/complain/complain.php';

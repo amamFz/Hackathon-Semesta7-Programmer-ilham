@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Complain;
+use App\Http\Controllers\Controller;
 use App\Models\Complain;
 use Illuminate\Http\Request;
 
