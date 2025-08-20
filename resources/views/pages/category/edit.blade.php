@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="text-xl font-semibold leading-tight text-gray-800">
-      {{ __('Buat Kategori') }}
+      {{ __('Edit Kategori') }}
     </h2>
   </x-slot>
 
@@ -9,13 +9,14 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
-          <form action="{{ route('category.store') }}" method="POST" class="space-y-6">
+          <form action="{{ route('category.update', $category->id) }}" method="POST" class="space-y-6">
             @csrf
+            @method('PUT')
             <div class="space-y-2">
               <x-input-label for="name" :value="__('Nama Kategori')" />
               <x-text-input id="name" name="name" type="text" required
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                value="{{ old('name') }}" />
+                value="{{ old('name', $category->name) }}" />
               <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div class="flex justify-end">

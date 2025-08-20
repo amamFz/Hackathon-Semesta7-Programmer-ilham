@@ -7,7 +7,6 @@ use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 
-
 class CategoryController extends Controller
 {
     /**
@@ -32,7 +31,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+        Category::create($data);
+
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
@@ -40,7 +42,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $categories = Category::all();
+        return view('pages.category.show', compact('category'));
     }
 
     /**
@@ -48,7 +51,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $categories = Category::all();
+        return view('pages.category.edit', compact('category'));
     }
 
     /**
@@ -56,7 +60,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+        $category->update($data);
+
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     /**
@@ -64,6 +71,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }
