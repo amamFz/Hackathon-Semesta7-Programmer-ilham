@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Complain;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Complain\StoreComplainRequest;
+use App\Models\Assignment;
 use App\Models\Category;
 use App\Models\Complain;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ComplainController extends Controller
 {
@@ -41,8 +44,21 @@ class ComplainController extends Controller
         $data['user_id'] = auth()->id();
         $data['category_id'] = Category::autoAssignIdFromTitle($data['title']);
 
-        Complain::create($data);
+        $complain = Complain::create($data);
 
+        $staffs = User::where('role', 'staff')
+            ->where('specialization', $complain->category->name)
+            ->get();
+
+        foreach ($staffs as $staff) {
+            Assignment::create([
+                'complain_id' => $complain->id,
+                'assigned_to' => $staff->id,
+                'assigned_by' => auth()->id(),
+                'assigned_at' => now(),
+                'note' => 'Auto-assign by system',
+            ]);
+        }
 
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditambahkan.');
     }
@@ -52,7 +68,8 @@ class ComplainController extends Controller
      */
     public function show(Complain $complain)
     {
-        //
+        $complain->load(['user', 'category', 'assignments.assignedTo']);
+        return view('pages.complain.show', compact('complain'));
     }
 
     /**
@@ -76,6 +93,12 @@ class ComplainController extends Controller
      */
     public function destroy(Complain $complain)
     {
-        //
+
+        if ($complain->photo) {
+            Storage::disk('public')->delete($complain->photo);
+        }
+
+        $complain->delete();
+        return redirect()->route('complain.index')->with('success', 'Keluhan berhasil dihapus.');
     }
 }

@@ -34,6 +34,13 @@ class DatabaseSeeder extends Seeder
                 'role' => 'resident',
                 'password' => bcrypt('resident123'),
             ],
+            [
+                'name' => 'Staff Listrik',
+                'email' => 'stafflistrik@gmail.com',
+                'role' => 'staff',
+                'password' => bcrypt('resident123'),
+                'specialization' => 'Listrik',
+            ],
         ]);
 
         $this->call([
