@@ -83,6 +83,9 @@
               </tr>
             @endforelse
           </x-table>
+          <div class="mt-4">
+            {{ $complains->links() }}
+          </div>
         </div>
       </div>
     </div>
