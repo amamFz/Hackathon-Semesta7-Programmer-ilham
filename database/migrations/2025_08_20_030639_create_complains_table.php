@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->string('lokasi_unit');
             $table->string('photo')->nullable();
             $table->enum('status', ['open', 'in_progress', 'closed'])->default('open');
             $table->timestamps();

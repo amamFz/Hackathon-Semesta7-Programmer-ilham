@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Complain extends Model
 {
-    protected $fillable = ['user_id', 'category_id', 'title', 'description', 'status'];
+    protected $fillable = ['user_id', 'category_id', 'title', 'description', 'status', 'lokasi_unit', 'photo'];
 
     public function user()
     {
