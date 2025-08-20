@@ -20,7 +20,9 @@ class ComplainController extends Controller
      */
     public function index()
     {
-        $complains = Complain::with(['user', 'category'])->get();
+        $complains = Complain::with(['user', 'category'])
+            ->paginate(10);
+
         return view('pages.complain.index', compact('complains'));
     }
 
@@ -61,7 +63,9 @@ class ComplainController extends Controller
                 'note' => 'Auto-assign by system',
             ]);
 
-            $staff->notify(new AssignmentNotification($complain, 'new'));
+            if (!empty($staff->telegram_chat_id)) {
+                $staff->notify(new AssignmentNotification($complain, 'new'));
+            }
         }
 
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditambahkan.');
@@ -117,7 +121,10 @@ class ComplainController extends Controller
         $complain->update(['status' => 'closed', 'comment' => 'Keluhan ditutup oleh admin.']);
 
         foreach ($complain->assignments as $assignment) {
-            $assignment->assignedTo?->notify(new AssignmentNotification($complain, 'closed'));
+            $user = $assignment->assignedTo;
+            if ($user && !empty($user->telegram_chat_id)) {
+                $user->notify(new AssignmentNotification($complain, 'closed'));
+            }
         }
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditutup.');
     }
