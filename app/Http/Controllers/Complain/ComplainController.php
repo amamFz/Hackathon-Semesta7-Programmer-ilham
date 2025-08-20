@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Complain;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Complain\StoreComplainRequest;
+use App\Models\Category;
 use App\Models\Complain;
 use Illuminate\Http\Request;
 
@@ -22,15 +24,27 @@ class ComplainController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.complain.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreComplainRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('complains', 'public');
+        }
+
+        $data['user_id'] = auth()->id();
+        $data['category_id'] = Category::autoAssignIdFromTitle($data['title']);
+
+        Complain::create($data);
+
+
+        return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditambahkan.');
     }
 
     /**

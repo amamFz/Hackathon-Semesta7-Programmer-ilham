@@ -4,7 +4,7 @@
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
         {{ __('Keluhan') }}
       </h2>
-      <x-button-add href="{{ route('category.create') }}">
+      <x-button-add href="{{ route('complain.create') }}">
         {{ __('Tambah Keluhan') }}
       </x-button-add>
 

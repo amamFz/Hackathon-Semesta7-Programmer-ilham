@@ -1,0 +1,56 @@
+<x-app-layout>
+  <x-slot name="header">
+    <h2 class="text-xl font-semibold leading-tight text-gray-800">
+      {{ __('Buat Keluhan') }}
+    </h2>
+  </x-slot>
+
+  <div class="py-12">
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900">
+          <form action="{{ route('complain.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+            @csrf
+            <div class="space-y-2">
+              <x-input-label for="title" :value="__('Judul Keluhan')" />
+              <x-text-input id="title" name="title" type="text" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                value="{{ old('title') }}" />
+              <x-input-error :messages="$errors->get('title')" class="mt-2" />
+            </div>
+            <div class="space-y-2">
+              <x-input-label for="description" :value="__('Deskripsi Keluhan')" />
+              <x-textarea id="description" name="description" type="text" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                value="{{ old('description') }}" />
+              <x-input-error :messages="$errors->get('description')" class="mt-2" />
+            </div>
+            <div class="space-y-2">
+              <x-input-label for="lokasi_unit" :value="__('Lokasi Unit')" />
+              <x-text-input id="lokasi_unit" name="lokasi_unit" type="text" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                value="{{ old('lokasi_unit') }}" />
+              <x-input-error :messages="$errors->get('lokasi_unit')" class="mt-2" />
+            </div>
+            <div class="space-y-2">
+              <x-input-label for="photo" :value="__('Photo')" />
+              <x-text-input id="photo" name="photo" type="file" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                value="{{ old('photo') }}" />
+              <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+            </div>
+            <div class="flex justify-end">
+              <a href="{{ route('complain.index') }}"
+                class="mr-2 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                Batal
+              </a>
+              <x-button>
+                Simpan
+              </x-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</x-app-layout>
