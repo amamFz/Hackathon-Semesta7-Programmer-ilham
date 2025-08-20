@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['resident', 'admin', 'supervisor', 'staff'])->default('resident');
             $table->string('specialization')->nullable();
+            $table->string('telegram_chat_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

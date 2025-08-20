@@ -9,6 +9,7 @@ use App\Models\Assignment;
 use App\Models\Category;
 use App\Models\Complain;
 use App\Models\User;
+use App\Notifications\AssignmentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,6 +60,8 @@ class ComplainController extends Controller
                 'assigned_at' => now(),
                 'note' => 'Auto-assign by system',
             ]);
+
+            $staff->notify(new AssignmentNotification($complain, 'new'));
         }
 
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditambahkan.');
@@ -110,7 +113,12 @@ class ComplainController extends Controller
 
     public function close(Complain $complain)
     {
+
         $complain->update(['status' => 'closed', 'comment' => 'Keluhan ditutup oleh admin.']);
+
+        foreach ($complain->assignments as $assignment) {
+            $assignment->assignedTo?->notify(new AssignmentNotification($complain, 'closed'));
+        }
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditutup.');
     }
 
