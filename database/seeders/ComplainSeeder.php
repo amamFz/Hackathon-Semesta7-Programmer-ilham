@@ -28,6 +28,7 @@ class ComplainSeeder extends Seeder
                 'title' => 'Kebocoran Pipa Toilet',
                 'description' => 'Ada kebocoran pipa di toilet yang perlu segera diperbaiki unit A-101.',
                 'photo' => 'https://example.com/toilet.jpg',
+                'lokasi_unit' => 'Unit A-101',
                 'status' => 'open',
             ],
             [
@@ -36,6 +37,7 @@ class ComplainSeeder extends Seeder
                 'title' => 'Lampu Mati',
                 'description' => 'Lampu lorong lantai 2 mati.',
                 'photo' => 'https://example.com/lampu.jpg',
+                'lokasi_unit' => 'Lantai 2',
                 'status' => 'open',
             ],
             [
@@ -44,6 +46,7 @@ class ComplainSeeder extends Seeder
                 'title' => 'Sampah Menumpuk',
                 'description' => 'Sampah di area parkir menumpuk dan perlu dibersihkan.',
                 'photo' => 'https://example.com/sampah.jpg',
+                'lokasi_unit' => 'Area Parkir',
                 'status' => 'open',
             ],
             [
@@ -52,6 +55,7 @@ class ComplainSeeder extends Seeder
                 'title' => 'Keamanan',
                 'description' => 'Ada orang mencurigakan di sekitar area parkir pada malam hari.',
                 'photo' => 'https://example.com/security.jpg',
+                'lokasi_unit' => 'Area Parkir',
                 'status' => 'open',
             ],
         ];
