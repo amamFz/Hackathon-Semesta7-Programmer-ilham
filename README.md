@@ -23,7 +23,7 @@ Aplikasi manajemen keluhan penghuni apartemen berbasis Laravel, dengan fitur aut
 2. **Jalankan database container:**
 
    ```
-   docker compose -up -d
+   docker compose up -d
    ```
 
 3. **Install dependency**
