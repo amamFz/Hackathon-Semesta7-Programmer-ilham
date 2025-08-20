@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="space-y-2">
-            <x-input-label :value="__('Deskripsi Keluhan')" />
+            <x-input-label :value="__('Komentar')" />
             <div class="mt-1 h-[100px] rounded-md border border-gray-200 bg-gray-50 p-2 text-gray-800">
               {{ $complain->comment ?? '-' }}
             </div>

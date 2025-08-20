@@ -46,6 +46,7 @@ class AssignmentNotification extends Notification
         $text = match ($this->type) {
             'new' => "🔔 Ada keluhan baru: {$this->complain->title}",
             'late' => "⏰ Keluhan belum direspons 2 jam: {$this->complain->title}",
+            'in_progress' => "🔄 Keluhan sedang diproses: {$this->complain->title}",
             'closed' => "✅ Keluhan telah ditutup: {$this->complain->title}",
             default => "Update keluhan: {$this->complain->title}",
         };

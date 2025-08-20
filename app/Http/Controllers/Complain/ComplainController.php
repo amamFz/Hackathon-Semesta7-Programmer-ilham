@@ -132,6 +132,20 @@ class ComplainController extends Controller
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil diperbarui.');
     }
 
+    public function prosess(Complain $complain)
+    {
+        $complain->update(['status' => 'in_progress']);
+
+        foreach ($complain->assignments as $assignment) {
+            $user = $assignment->assignedTo;
+            if ($user && !empty($user->telegram_chat_id)) {
+                $user->notify(new AssignmentNotification($complain, 'in_progress'));
+            }
+        }
+
+        return redirect()->route('complain.index')->with('success', 'Keluhan sedang diproses.');
+    }
+
     public function close(Complain $complain)
     {
 

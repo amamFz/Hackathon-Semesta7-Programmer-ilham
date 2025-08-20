@@ -12,5 +12,6 @@ Route::prefix('complain')->group(function () {
     Route::put('/{complain}', [ComplainController::class, 'update'])->name('complain.update');
     Route::delete('/{complain}', [ComplainController::class, 'destroy'])->name('complain.destroy');
     Route::put('/complain/{complain}/close', [ComplainController::class, 'close'])->name('complain.close');
+    Route::put('/complain/{complain}/prosess', [ComplainController::class, 'prosess'])->name('complain.prosess');
     Route::post('/complain/{complain}/comment', [ComplainController::class, 'comment'])->name('complain.comment');
 });

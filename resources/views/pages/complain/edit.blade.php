@@ -72,17 +72,34 @@
             </div>
           </form>
 
-          @if (auth()->user() && auth()->user()->role === 'admin')
-            @if ($complain->status !== 'closed')
-              <form method="POST" action="{{ route('complain.close', $complain->id) }}" class="mt-4">
-                @csrf
-                @method('PUT')
-                <x-button type="submit" class="bg-green-600">
-                  Tutup Keluhan
-                </x-button>
-              </form>
+          <div class="flex items-center gap-4">
+            @if (auth()->user() && auth()->user()->role === 'admin')
+              @if ($complain->status !== 'closed')
+                <form method="POST" action="{{ route('complain.close', $complain->id) }}" class="mt-4">
+                  @csrf
+                  @method('PUT')
+                  <x-button type="submit" class="bg-green-600">
+                    Tutup Keluhan
+                  </x-button>
+                </form>
+              @endif
             @endif
-          @endif
+            @if (
+                (auth()->user() && auth()->user()->role === 'admin') ||
+                    auth()->user()->role === 'supervisor' ||
+                    auth()->user()->role === 'staff' ||
+                    auth()->user()->role === 'supervisor')
+              @if ($complain->status !== 'closed')
+                <form method="POST" action="{{ route('complain.prosess', $complain->id) }}" class="mt-4">
+                  @csrf
+                  @method('PUT')
+                  <x-button type="submit" class="bg-green-600">
+                    Mulai Proses
+                  </x-button>
+                </form>
+              @endif
+            @endif
+          </div>
         </div>
       </div>
     </div>
