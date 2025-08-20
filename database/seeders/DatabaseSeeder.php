@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Staff Listrik',
                 'email' => 'stafflistrik@gmail.com',
                 'role' => 'staff',
-                'password' => bcrypt('resident123'),
+                'password' => bcrypt('listrik123'),
                 'specialization' => 'Listrik',
             ],
             [
