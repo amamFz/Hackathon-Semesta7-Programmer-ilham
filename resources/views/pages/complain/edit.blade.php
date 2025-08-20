@@ -48,12 +48,18 @@
                 @endif
               </div>
 
-              <div class="space-y-2">
-                <x-input-label for="comment" :value="__('Komentar Admin (opsional)')" />
-                <x-textarea id="comment" name="comment" rows="3"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('comment', $complain->comment) }}</x-textarea>
-                <x-input-error :messages="$errors->get('comment')" class="mt-2" />
-              </div>
+
+              @if (
+                  (auth()->user() && auth()->user()->role === 'admin') ||
+                      auth()->user()->role === 'supervisor' ||
+                      auth()->user()->role === 'staff')
+                <div class="space-y-2">
+                  <x-input-label for="comment" :value="__('Komentar Admin (opsional)')" />
+                  <x-textarea id="comment" name="comment" rows="3"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('comment', $complain->comment) }}</x-textarea>
+                  <x-input-error :messages="$errors->get('comment')" class="mt-2" />
+                </div>
+              @endif
             </div>
             <div class="flex justify-end gap-2">
               <a href="{{ route('complain.index') }}"
@@ -66,14 +72,16 @@
             </div>
           </form>
 
-          @if ($complain->status !== 'closed')
-            <form method="POST" action="{{ route('complain.close', $complain->id) }}" class="mt-4">
-              @csrf
-              @method('PUT')
-              <x-button type="submit" class="bg-green-600">
-                Tutup Keluhan
-              </x-button>
-            </form>
+          @if (auth()->user() && auth()->user()->role === 'admin')
+            @if ($complain->status !== 'closed')
+              <form method="POST" action="{{ route('complain.close', $complain->id) }}" class="mt-4">
+                @csrf
+                @method('PUT')
+                <x-button type="submit" class="bg-green-600">
+                  Tutup Keluhan
+                </x-button>
+              </form>
+            @endif
           @endif
         </div>
       </div>

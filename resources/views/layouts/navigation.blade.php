@@ -18,9 +18,11 @@
           <x-nav-link :href="route('complain.index')" :active="request()->routeIs('complain.*')">
             {{ __('Keluhan') }}
           </x-nav-link>
-          <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
-            {{ __('Kategori') }}
-          </x-nav-link>
+          @if ((auth()->user() && auth()->user()->role === 'admin') || auth()->user()->role === 'supervisor')
+            <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+              {{ __('Kategori') }}
+            </x-nav-link>
+          @endif
         </div>
       </div>
 

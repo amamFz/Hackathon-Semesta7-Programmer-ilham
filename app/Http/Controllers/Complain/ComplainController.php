@@ -20,8 +20,25 @@ class ComplainController extends Controller
      */
     public function index()
     {
-        $complains = Complain::with(['user', 'category'])
-            ->paginate(10);
+        $user = auth()->user();
+
+        if ($user->role === 'resident') {
+            // Hanya keluhan milik user sendiri
+            $complains = Complain::with(['user', 'category'])
+                ->where('user_id', $user->id)
+                ->paginate(10);
+        } elseif ($user->role === 'staff') {
+            // Hanya keluhan yang pernah di-assign ke staff ini
+            $complains = Complain::with(['user', 'category'])
+                ->whereHas('assignments', function ($q) use ($user) {
+                    $q->where('assigned_to', $user->id);
+                })
+                ->paginate(10);
+        } else {
+            // admin/supervisor: semua keluhan
+            $complains = Complain::with(['user', 'category'])
+                ->paginate(10);
+        }
 
         return view('pages.complain.index', compact('complains'));
     }
