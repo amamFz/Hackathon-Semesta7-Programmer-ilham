@@ -17,4 +17,9 @@ class Complain extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Complain;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Complain\StoreComplainRequest;
+use App\Http\Requests\Complain\UpdateComplainRequest;
 use App\Models\Assignment;
 use App\Models\Category;
 use App\Models\Complain;
@@ -77,15 +78,29 @@ class ComplainController extends Controller
      */
     public function edit(Complain $complain)
     {
-        //
+        $complain->load(['user', 'category']);
+        return view('pages.complain.edit', compact('complain'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Complain $complain)
+    public function update(UpdateComplainRequest $request, Complain $complain)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            if ($complain->photo) {
+                Storage::disk('public')->delete($complain->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('complains', 'public');
+        }
+
+        $data['category_id'] = Category::autoAssignIdFromTitle($data['title']);
+
+        $complain->update($data);
+
+        return redirect()->route('complain.index')->with('success', 'Keluhan berhasil diperbarui.');
     }
 
     /**
