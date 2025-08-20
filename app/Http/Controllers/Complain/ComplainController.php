@@ -97,10 +97,21 @@ class ComplainController extends Controller
         }
 
         $data['category_id'] = Category::autoAssignIdFromTitle($data['title']);
+        $data['comment'] = $request->comment ?? $complain->comment;
+
+        if ($request->filled('comment')) {
+            $data['status'] = 'closed';
+        }
 
         $complain->update($data);
 
         return redirect()->route('complain.index')->with('success', 'Keluhan berhasil diperbarui.');
+    }
+
+    public function close(Complain $complain)
+    {
+        $complain->update(['status' => 'closed', 'comment' => 'Keluhan ditutup oleh admin.']);
+        return redirect()->route('complain.index')->with('success', 'Keluhan berhasil ditutup.');
     }
 
     /**

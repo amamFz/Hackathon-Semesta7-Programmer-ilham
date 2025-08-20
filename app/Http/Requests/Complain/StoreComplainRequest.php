@@ -26,6 +26,7 @@ class StoreComplainRequest extends FormRequest
             'description' => 'required|string|min:10',
             'photo' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'lokasi_unit' => 'required|string|max:255',
+            'comment' => 'nullable|string'
             // 'status' => 'required|open,in_progress,closed',
             // 'category_id' => 'required|exists:categories,id',
             // 'user_id' => 'required|exists:users,id',

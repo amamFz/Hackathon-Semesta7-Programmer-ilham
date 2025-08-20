@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('lokasi_unit');
             $table->string('photo')->nullable();
             $table->enum('status', ['open', 'in_progress', 'closed'])->default('open');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
