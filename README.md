@@ -4,8 +4,8 @@ Aplikasi manajemen keluhan penghuni apartemen berbasis Laravel, dengan fitur aut
 
 ## Teknologi yang Digunakan
 
-- Laravel 12 (Backend & Routing)
-- PostgreSQL / MySQL (Database)
+- Laravel 12 (Fullstack)
+- PostgreSQL (Database)
 - Tailwind CSS (Frontend)
 - Chart.js (Dashboard Grafik)
 - Telegram Bot API (Notifikasi)
@@ -17,37 +17,43 @@ Aplikasi manajemen keluhan penghuni apartemen berbasis Laravel, dengan fitur aut
 
    ```
    git clone https://github.com/amamFz/Hackathon-Semesta7-Programmer-ilham.git
-   cd fullstack-laravel/laravel-hackathon
+   cd Hackathon-Semesta7-Programmer-ilham
    ```
 
-2. **Install dependency**
+2. **Jalankan database container:**
+
+   ```
+   docker compose -up -d
+   ```
+
+3. **Install dependency**
 
    ```
    composer install
    npm install
    ```
 
-3. **Copy file environment**
+4. **Copy file environment**
 
    ```
    cp .env.example .env
    ```
 
-4. **Set konfigurasi database di file `.env`**
+5. **Set konfigurasi database di file `.env`**
 
-5. **Generate key**
+6. **Generate key**
 
    ```
    php artisan key:generate
    ```
 
-6. **Migrasi & seed database**
+7. **Migrasi & seed database**
 
    ```
    php artisan migrate --seed
    ```
 
-7. **Jalankan aplikasi**
+8. **Jalankan aplikasi**
    ```
    php artisan serve
    npm run dev
@@ -67,11 +73,11 @@ Aplikasi manajemen keluhan penghuni apartemen berbasis Laravel, dengan fitur aut
 ## Dokumentasi Fitur
 
 - **Auto-Assignment:** Keluhan otomatis di-assign ke staff spesialis.
-- **Re-Assignment:** Keluhan yang tidak direspons 2 jam otomatis ke supervisor.
+<!-- - **Re-Assignment:** Keluhan yang tidak direspons 2 jam otomatis ke supervisor. -->
 - **Notifikasi Telegram:** Petugas & supervisor dapat notifikasi real-time.
 - **Dashboard Analitik:** Grafik keluhan bulanan, per kategori, top 10 pelapor.
-- **PDF Report:** Laporan mingguan dalam format PDF.
-- **AI Analysis:** Analisis pola keluhan & rekomendasi solusi.
+  <!-- - **PDF Report:** Laporan mingguan dalam format PDF. -->
+  <!-- - **AI Analysis:** Analisis pola keluhan & rekomendasi solusi. -->
 
 ```
 
