@@ -18,9 +18,12 @@
           <x-table>
             <x-slot name="thead">
               <th class="thead-table">No</th>
-              <th class="thead-table">Nama Keluhan
+              <th class="thead-table">Judul Keluhan
               </th>
               <th class="thead-table">Deskripsi Keluhan
+              </th>
+              </th>
+              <th class="thead-table">Pelapor
               </th>
               <th class="thead-table">Kategori Keluhan
               </th>
@@ -41,6 +44,7 @@
                 <td class="td-table">{{ $loop->iteration }}</td>
                 <td class="td-table">{{ $com->title }}</td>
                 <td class="td-table">{{ Str::limit($com->description, 40) }}</td>
+                <td class="td-table">{{ $com->user->name }}</td>
                 <td class="td-table">
                   <span class="badge">{{ $com->category->name }}</span>
                 </td>
