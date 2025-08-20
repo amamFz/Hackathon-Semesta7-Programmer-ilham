@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Complain;
+
 use App\Http\Controllers\Controller;
 use App\Models\Complain;
 use Illuminate\Http\Request;
@@ -12,7 +13,8 @@ class ComplainController extends Controller
      */
     public function index()
     {
-        //
+        $complains = Complain::with(['user', 'category'])->get();
+        return view('pages.complain.index', compact('complains'));
     }
 
     /**
